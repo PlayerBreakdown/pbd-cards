@@ -49,7 +49,7 @@ export default function RootLayout({
             <nav className="flex items-center gap-2 text-sm">
               <NavLink href="/" label="Cartas" />
               <NavLink href="/rankings" label="Rankings" />
-              <NavLink href="/información" label="Información" />
+              <NavLink href="/info" label="Información" />
             </nav>
           </div>
         </header>
