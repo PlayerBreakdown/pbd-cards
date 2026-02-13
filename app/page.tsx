@@ -5,7 +5,6 @@ import { supabase } from "@/lib/supabaseClient";
 
 export const dynamic = "force-dynamic";
 
-
 type Card = {
   id: string;
   card_id: string;
@@ -14,11 +13,11 @@ type Card = {
   season_end: number | null;
   series: string | null;
   overall: number;
-  gol: number;
-  asist: number;
-  regate: number;
-  pase: number;
-  def: number;
+  gol: number; // = Definición
+  asist: number; // = Visión
+  regate: number; // = Regate
+  pase: number; // = Pase
+  def: number; // = Defensa
   image_url: string | null;
 };
 
@@ -31,6 +30,14 @@ type SortKey =
   | "pase_desc"
   | "def_desc"
   | "player_name_asc";
+
+const LABELS = {
+  gol: "Definición",
+  asist: "Visión",
+  regate: "Regate",
+  pase: "Pase",
+  def: "Defensa",
+} as const;
 
 export default function Home() {
   const [cards, setCards] = useState<Card[]>([]);
@@ -79,7 +86,7 @@ export default function Home() {
         q = q.eq("series", series);
       }
 
-      // orden
+      // orden (las columnas siguen siendo gol/asist/etc en DB)
       if (sort === "season_end_desc")
         q = q.order("season_end", { ascending: false });
       if (sort === "overall_desc") q = q.order("overall", { ascending: false });
@@ -147,19 +154,19 @@ export default function Home() {
               Overall (mayor)
             </option>
             <option value="gol_desc" className="bg-black text-white">
-              Gol (mayor)
+              {LABELS.gol} (mayor)
             </option>
             <option value="asist_desc" className="bg-black text-white">
-              Asist (mayor)
+              {LABELS.asist} (mayor)
             </option>
             <option value="regate_desc" className="bg-black text-white">
-              Regate (mayor)
+              {LABELS.regate} (mayor)
             </option>
             <option value="pase_desc" className="bg-black text-white">
-              Pase (mayor)
+              {LABELS.pase} (mayor)
             </option>
             <option value="def_desc" className="bg-black text-white">
-              Def (mayor)
+              {LABELS.def} (mayor)
             </option>
             <option value="player_name_asc" className="bg-black text-white">
               Nombre (A → Z)
@@ -204,12 +211,13 @@ export default function Home() {
               </div>
             )}
 
+            {/* Chips inferiores: etiquetas coherentes con las cartas PNG */}
             <div className="mt-3 grid grid-cols-5 gap-2 text-center text-xs">
-              <Stat label="GOL" v={c.gol} />
-              <Stat label="AST" v={c.asist} />
-              <Stat label="REG" v={c.regate} />
-              <Stat label="PAS" v={c.pase} />
-              <Stat label="DEF" v={c.def} />
+              <Stat label="DEF." title={LABELS.gol} v={c.gol} />
+              <Stat label="VIS." title={LABELS.asist} v={c.asist} />
+              <Stat label="REG." title={LABELS.regate} v={c.regate} />
+              <Stat label="PASE" title={LABELS.pase} v={c.pase} />
+              <Stat label="DEF." title={LABELS.def} v={c.def} />
             </div>
           </div>
         ))}
@@ -218,9 +226,20 @@ export default function Home() {
   );
 }
 
-function Stat({ label, v }: { label: string; v: number }) {
+function Stat({
+  label,
+  title,
+  v,
+}: {
+  label: string;
+  title?: string;
+  v: number;
+}) {
   return (
-    <div className="rounded-md bg-black/40 border border-white/10 py-2">
+    <div
+      className="rounded-md bg-black/40 border border-white/10 py-2"
+      title={title}
+    >
       <div className="text-white/60">{label}</div>
       <div className="text-white font-bold">{v}</div>
     </div>
