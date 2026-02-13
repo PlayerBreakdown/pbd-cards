@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabaseClient";
 
 export const dynamic = "force-dynamic";
@@ -54,7 +54,7 @@ export default function Home() {
   const [search, setSearch] = useState("");
 
   // Filtros desplegables (single)
-  const [series, setSeries] = useState<string>("all");
+  const [series, setSeries] = useState<string>("all"); // lo mantenemos por si luego agregas PBH
   const [season, setSeason] = useState<string>("all");
   const [country, setCountry] = useState<string>("all");
   const [club, setClub] = useState<string>("all");
@@ -77,11 +77,10 @@ export default function Home() {
   // 1) Cargar opciones para los selects (temporadas, clubes, países, series)
   useEffect(() => {
     const loadOptions = async () => {
-      // Traemos solo columnas necesarias para construir listas
       const { data, error } = await supabase
         .from("cards")
         .select("series, season_text, country, club")
-        .limit(2000); // ajusta si crece mucho (para tu tamaño actual sobra)
+        .limit(2000);
 
       if (error) {
         console.log("⚠️ No pude cargar opciones:", error.message);
@@ -251,7 +250,7 @@ export default function Home() {
               Temporada (más nueva)
             </option>
             <option value="overall_desc" className="bg-black text-white">
-              Overall (mayor)
+              Mejor calificado (mayor)
             </option>
             <option value="gol_desc" className="bg-black text-white">
               {LABELS.gol} (mayor)
@@ -282,8 +281,8 @@ export default function Home() {
             Limpiar
           </button>
 
-          {/* (Opcional) Series: lo dejo oculto por ahora; si quieres lo mostramos */}
-          {/* 
+          {/* Series (opcional; hoy es redundante porque todo es PBP V1) */}
+          {/*
           <select
             value={series}
             onChange={(e) => setSeries(e.target.value)}
@@ -370,4 +369,3 @@ function Stat({
     </div>
   );
 }
-
