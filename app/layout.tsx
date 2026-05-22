@@ -1,18 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import InfoBanner from "./components/InfoBanner";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
   title: "PBP Cards",
@@ -37,9 +26,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-black text-white`}
-      >
+      <body className="antialiased bg-black text-white">
         <header className="sticky top-0 z-50 bg-black/70 backdrop-blur border-b border-white/10">
           <div className="max-w-6xl mx-auto px-6 py-3 flex items-center justify-between">
             <Link href="/" className="font-black text-lg">
@@ -49,14 +36,12 @@ export default function RootLayout({
             <nav className="flex items-center gap-2 text-sm">
               <NavLink href="/" label="Cartas" />
               <NavLink href="/rankings" label="Rankings" />
-              <NavLink href="/info" label="Información" />
+              <NavLink href="/info" label="Informacion" />
             </nav>
           </div>
         </header>
 
-        {/* Banner global (se oculta automáticamente en /info) */}
         <InfoBanner />
-
         {children}
       </body>
     </html>

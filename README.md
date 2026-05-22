@@ -1,36 +1,44 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# PBP Cards
 
-## Getting Started
+Web de cartas y rankings generada desde archivos estaticos.
 
-First, run the development server:
+## Flujo de actualizacion
+
+1. Exporta la pestana `Puntuaciones atacantes` desde Google Sheets como CSV y guardala como `../PUNTUACIONES_ATACANTES.csv`.
+2. Si agregas un jugador nuevo, revisa `../assets/asset-map.json` y agrega su pais, foto y club por temporada.
+3. Genera las imagenes:
+
+```bash
+cd ../generator
+npm run gen
+```
+
+4. Sincroniza los datos e imagenes con la web:
+
+```bash
+cd ../pbd-cards
+npm run sync:data
+```
+
+El comando copia `../output/*.png` a `public/cards/` y crea `public/data/cards.json`.
+
+Si `PUNTUACIONES_ATACANTES.csv` existe, el generador usa ese archivo. Si no existe, usa el `EXPORT.csv` viejo como respaldo.
+
+## Desarrollo
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Abre `http://localhost:3000`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Verificacion
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run lint
+npm run build
+```
 
-## Learn More
+## Deploy
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Sube el proyecto `pbd-cards` a Vercel. La web ya no necesita variables de entorno ni Supabase para mostrar cartas.
