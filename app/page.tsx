@@ -118,7 +118,7 @@ export default function Home() {
         <p className="text-white/60">No hay resultados con esos filtros.</p>
       )}
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 2xl:grid-cols-5 gap-3">
         {cards.map((card) => (
           <CardPreview key={card.id} card={card} />
         ))}
@@ -155,7 +155,7 @@ function Select({
 
 function CardPreview({ card }: { card: Card }) {
   return (
-    <div className="rounded-xl border border-white/10 bg-white/5 p-4">
+    <div className="rounded-lg border border-white/10 bg-white/5 p-3">
       <div className="flex items-center justify-between mb-2">
         <div>
           <p className="font-semibold">{card.player_name}</p>
@@ -173,30 +173,13 @@ function CardPreview({ card }: { card: Card }) {
         <img
           src={card.image_url}
           alt={card.player_name}
-          className="w-full rounded-lg border border-white/10"
+          className="w-full rounded-md border border-white/10"
         />
       ) : (
         <div className="w-full h-40 rounded-lg bg-white/10 flex items-center justify-center text-white/50">
           Sin imagen
         </div>
       )}
-
-      <div className="mt-3 grid grid-cols-5 gap-2 text-center text-xs">
-        <Stat label="DEF." title={LABELS.gol} value={card.gol} />
-        <Stat label="VIS." title={LABELS.asist} value={card.asist} />
-        <Stat label="REG." title={LABELS.regate} value={card.regate} />
-        <Stat label="PASE" title={LABELS.pase} value={card.pase} />
-        <Stat label="DEF." title={LABELS.def} value={card.def} />
-      </div>
-    </div>
-  );
-}
-
-function Stat({ label, title, value }: { label: string; title: string; value: number }) {
-  return (
-    <div className="rounded-md bg-black/40 border border-white/10 py-2" title={title}>
-      <div className="text-white/60">{label}</div>
-      <div className="text-white font-bold">{value}</div>
     </div>
   );
 }

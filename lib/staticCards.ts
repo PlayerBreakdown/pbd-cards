@@ -56,9 +56,17 @@ export function optionsFor(field: "series" | "season_text" | "country" | "club")
 }
 
 export function searchCards(query: string) {
-  const needle = query.trim().toLowerCase();
+  const needle = normalizeSearch(query);
   if (!needle) return cards;
-  return cards.filter((card) => card.player_name.toLowerCase().includes(needle));
+  return cards.filter((card) => normalizeSearch(card.player_name).includes(needle));
+}
+
+export function normalizeSearch(value: string) {
+  return value
+    .trim()
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "");
 }
 
 export function sortCards(rows: Card[], sort: string) {
@@ -69,5 +77,15 @@ export function sortCards(rows: Card[], sort: string) {
   }
 
   const field = sort.replace("_desc", "") as keyof Card;
-  return sorted.sort((a, b) => Number(b[field] ?? 0) - Number(a[field] ?? 0));
+  return sorted.sort((a, b) => {
+    const primary = Number(b[field] ?? 0) - Number(a[field] ?? 0);
+    if (primary !== 0) return primary;
+
+    if (field === "season_end") {
+      const byOverall = Number(b.overall ?? 0) - Number(a.overall ?? 0);
+      if (byOverall !== 0) return byOverall;
+    }
+
+    return a.player_name.localeCompare(b.player_name);
+  });
 }

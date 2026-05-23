@@ -15,8 +15,7 @@ const COUNTRY_NAMES = {
   argentina: "Argentina",
   brasil: "Brasil",
   colombia: "Colombia",
-  espana: "España",
-  españa: "España",
+  espana: "Espana",
   francia: "Francia",
   nigeria: "Nigeria",
   paisesbajos: "Paises Bajos",
@@ -42,13 +41,33 @@ function slugify(value) {
     .toLowerCase()
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "")
-    .replace(/ñ/g, "n")
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-+|-+$/g, "");
 }
 
 function compactSlug(value) {
   return slugify(value).replaceAll("-", "");
+}
+
+function playerSlugCandidates(playerName) {
+  const slug = slugify(playerName);
+  const parts = slug.split("-").filter(Boolean);
+  const rest = parts.length > 1 ? parts.slice(1).join("-") : "";
+  const last = parts.length > 1 ? parts[parts.length - 1] : "";
+  return Array.from(new Set([
+    slug,
+    compactSlug(playerName),
+    rest,
+    rest.replaceAll("-", ""),
+    last,
+  ].filter(Boolean)));
+}
+
+function resolveAsset(assetMap, playerName) {
+  for (const key of playerSlugCandidates(playerName)) {
+    if (assetMap[key]) return { key, asset: assetMap[key] };
+  }
+  return { key: "", asset: {} };
 }
 
 function parseNumber(value) {
@@ -113,8 +132,18 @@ function parseCsv(text) {
 }
 
 function slugFromAsset(assetPath) {
-  const base = path.basename(clean(assetPath).split("|")[0] || "", path.extname(assetPath));
+  const firstPath = clean(assetPath).split("|")[0] || "";
+  if (!firstPath) return "";
+  const base = path.basename(firstPath, path.extname(firstPath));
   return base.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+}
+
+function valueFromRow(row, names) {
+  for (const name of names) {
+    const value = clean(row[name]);
+    if (value) return value;
+  }
+  return "";
 }
 
 function labelFromSlug(slug, map) {
@@ -168,11 +197,18 @@ function copyImages() {
 function cardFromNewSheet(row, assetMap) {
   const playerName = clean(row.Jugador);
   const seasonText = normalizeSeason(row.Temporada);
-  const asset = assetMap[slugify(playerName)] || {};
+  const { asset } = resolveAsset(assetMap, playerName);
   const endYear = seasonEnd(seasonText);
   const cardId = `${compactSlug(playerName)}_pvpv1_${endYear || ""}`;
+  const rowCountry = valueFromRow(row, ["Pais", "País", "Nacionalidad", "Country"]);
+  const rowClub = valueFromRow(row, ["Club", "Equipo", "Team"]);
   const clubPath = resolveClubPath(asset, seasonText);
   const clubSlug = slugFromAsset(clubPath);
+  const cardImagePath = path.join(PUBLIC_CARDS_DIR, `${cardId}.png`);
+
+  if (!fs.existsSync(cardImagePath)) {
+    throw new Error(`No existe la imagen de carta para ${playerName}: ${cardImagePath}. Ejecuta npm.cmd run refresh:data desde pbd-cards para generar y sincronizar en orden.`);
+  }
 
   return {
     id: cardId,
@@ -181,8 +217,8 @@ function cardFromNewSheet(row, assetMap) {
     season_text: seasonText || null,
     season_end: endYear,
     series: "PBP",
-    country: clean(asset.country) || labelFromSlug(slugFromAsset(asset.country_badge_path), COUNTRY_NAMES) || null,
-    club: clean(asset.club) || labelFromSlug(clubSlug, CLUB_NAMES) || null,
+    country: rowCountry || clean(asset.country) || labelFromSlug(slugFromAsset(asset.country_badge_path), COUNTRY_NAMES) || null,
+    club: rowClub || clean(asset.club) || labelFromSlug(clubSlug, CLUB_NAMES) || null,
     overall: roundNumber(row["Total visual x2"] || row["Total base"]),
     gol: roundNumber(row["Score Gol"]),
     asist: roundNumber(row["Score Pase creativo"]),
@@ -217,6 +253,28 @@ function cardFromExport(row) {
   };
 }
 
+function uniqueByCardId(cards) {
+  const seen = new Set();
+  const unique = [];
+
+  for (const card of cards) {
+    const key = clean(card.card_id || card.id);
+    if (!key || seen.has(key)) continue;
+    seen.add(key);
+    unique.push(card);
+  }
+
+  return unique;
+}
+
+function sortByOverallDesc(cards) {
+  return [...cards].sort((a, b) => {
+    const byOverall = Number(b.overall ?? 0) - Number(a.overall ?? 0);
+    if (byOverall !== 0) return byOverall;
+    return clean(a.player_name).localeCompare(clean(b.player_name));
+  });
+}
+
 function main() {
   const inputCsvPath = fs.existsSync(NEW_CSV_PATH) ? NEW_CSV_PATH : CSV_PATH;
 
@@ -229,9 +287,13 @@ function main() {
 
   const assetMap = loadAssetMap();
   const rows = parseCsv(fs.readFileSync(inputCsvPath, "utf8"));
-  const cards = rows
-    .filter((row) => clean(row.Jugador || row.player_name))
-    .map((row) => (hasNewSheetColumns(row) ? cardFromNewSheet(row, assetMap) : cardFromExport(row)));
+  const cards = sortByOverallDesc(
+    uniqueByCardId(
+      rows
+        .filter((row) => clean(row.Jugador || row.player_name))
+        .map((row) => (hasNewSheetColumns(row) ? cardFromNewSheet(row, assetMap) : cardFromExport(row)))
+    )
+  );
 
   fs.writeFileSync(DATA_PATH, `${JSON.stringify(cards, null, 2)}\n`, "utf8");
   console.log(`Sincronizadas ${cards.length} cartas en ${DATA_PATH}`);
