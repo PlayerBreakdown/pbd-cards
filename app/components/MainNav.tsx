@@ -20,8 +20,8 @@ export default function MainNav() {
   const pathname = usePathname();
 
   return (
-    <div className="relative grid w-full min-w-0 grid-cols-1 items-center gap-2 xl:gap-3 min-[1800px]:grid-cols-[minmax(0,54rem)_minmax(30rem,1fr)]">
-      <nav className="grid w-full min-w-0 grid-cols-5 gap-1 border-b border-[#d89b18]/25 pb-1 sm:gap-2 min-[1800px]:w-[54rem]">
+    <div className="relative grid w-full min-w-0 grid-cols-1 items-center gap-2 xl:gap-3 min-[1400px]:grid-cols-[minmax(0,1fr)_auto] min-[1800px]:grid-cols-[minmax(0,54rem)_minmax(30rem,1fr)]">
+      <nav className="grid w-full min-w-0 grid-cols-5 gap-1 border-b border-[#d89b18]/25 pb-1 sm:gap-2 min-[1400px]:self-center min-[1800px]:w-[54rem]">
         {navItems.map((item) => (
           <NavItem
             key={item.href}
@@ -33,7 +33,7 @@ export default function MainNav() {
         ))}
       </nav>
 
-      <div className="flex w-full min-w-0 flex-col items-stretch gap-2 sm:flex-row sm:flex-wrap sm:items-center sm:justify-end xl:flex-nowrap min-[1800px]:col-start-2 min-[1800px]:pl-4">
+      <div className="flex w-full min-w-0 flex-col items-stretch gap-2 sm:flex-row sm:flex-wrap sm:items-center sm:justify-end xl:flex-nowrap min-[1400px]:col-start-2 min-[1400px]:row-start-1 min-[1400px]:pl-4">
         <div className="flex min-w-0 flex-1 flex-col items-stretch gap-1.5 rounded-2xl border border-[#d89b18]/35 bg-black/35 p-1.5 shadow-[0_0_18px_rgba(216,155,24,0.08)] sm:min-w-[14rem] sm:flex-[1_1_15rem] xl:w-64 xl:flex-none">
           <p className="text-center text-xs font-bold uppercase leading-none tracking-[0.06em] text-[#f6d47a] sm:text-sm sm:tracking-[0.08em]">
             ¿No encontraste un jugador? ¡Pídelo!
