@@ -25,7 +25,7 @@ export default function SeasonRatingScale() {
         Calificación de temporada
       </h2>
 
-      <ul className="grid grid-flow-col grid-cols-[minmax(0,1fr)_minmax(0,1fr)] grid-rows-6 gap-1.5">
+      <ul className="grid grid-cols-1 gap-1.5 sm:grid-flow-col sm:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] sm:grid-rows-6">
         {ratingBands.map((band) => (
           <li
             key={band.range}

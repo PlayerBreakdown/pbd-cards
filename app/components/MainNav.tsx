@@ -20,8 +20,8 @@ export default function MainNav() {
   const pathname = usePathname();
 
   return (
-    <div className="relative grid w-full grid-cols-1 items-center gap-3 2xl:grid-cols-[1fr_auto_minmax(36rem,1fr)]">
-      <nav className="grid w-full grid-cols-5 gap-1 border-b border-[#d89b18]/25 pb-1 sm:gap-2 2xl:col-start-2 2xl:w-[58rem]">
+    <div className="relative grid w-full min-w-0 grid-cols-1 items-center gap-2 xl:gap-3 2xl:grid-cols-[1fr_auto_minmax(30rem,1fr)]">
+      <nav className="grid w-full min-w-0 grid-cols-5 gap-1 border-b border-[#d89b18]/25 pb-1 sm:gap-2 2xl:col-start-2 2xl:w-[54rem]">
         {navItems.map((item) => (
           <NavItem
             key={item.href}
@@ -33,9 +33,9 @@ export default function MainNav() {
         ))}
       </nav>
 
-      <div className="flex w-full flex-col items-stretch gap-2 sm:flex-row sm:items-center sm:justify-end 2xl:col-start-3 2xl:pl-4">
-        <div className="flex flex-1 flex-col items-stretch gap-1.5 rounded-2xl border border-[#d89b18]/35 bg-black/35 p-1.5 shadow-[0_0_18px_rgba(216,155,24,0.08)] sm:w-64 sm:flex-none">
-          <p className="text-center text-sm font-bold uppercase leading-none tracking-[0.08em] text-[#f6d47a]">
+      <div className="flex w-full min-w-0 flex-col items-stretch gap-2 sm:flex-row sm:flex-wrap sm:items-center sm:justify-end xl:flex-nowrap 2xl:col-start-3 2xl:pl-4">
+        <div className="flex min-w-0 flex-1 flex-col items-stretch gap-1.5 rounded-2xl border border-[#d89b18]/35 bg-black/35 p-1.5 shadow-[0_0_18px_rgba(216,155,24,0.08)] sm:min-w-[14rem] sm:flex-[1_1_15rem] xl:w-64 xl:flex-none">
+          <p className="text-center text-xs font-bold uppercase leading-none tracking-[0.06em] text-[#f6d47a] sm:text-sm sm:tracking-[0.08em]">
             ¿No encontraste un jugador? ¡Pídelo!
           </p>
 
@@ -43,7 +43,7 @@ export default function MainNav() {
             href="https://ko-fi.com/playerbreakdown"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex h-12 flex-1 items-center justify-center gap-2 rounded-xl border border-[#f1c14b]/70 bg-[linear-gradient(135deg,#f1c14b,#d89b18_48%,#9a5f05)] px-5 text-lg font-black uppercase tracking-[0.12em] text-[#08111f] shadow-[inset_0_1px_0_rgba(255,255,255,0.35)] hover:border-[#ffe274] hover:bg-[#f1c14b] sm:flex-none"
+            className="inline-flex h-12 flex-1 items-center justify-center gap-2 rounded-xl border border-[#f1c14b]/70 bg-[linear-gradient(135deg,#f1c14b,#d89b18_48%,#9a5f05)] px-3 text-base font-black uppercase tracking-[0.08em] text-[#08111f] shadow-[inset_0_1px_0_rgba(255,255,255,0.35)] hover:border-[#ffe274] hover:bg-[#f1c14b] sm:flex-none xl:px-5 xl:text-lg xl:tracking-[0.12em]"
           >
             <span aria-hidden="true">★</span>
             Pedir carta
@@ -54,7 +54,7 @@ export default function MainNav() {
           href="https://ko-fi.com/playerbreakdown"
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex h-12 flex-1 items-center justify-center gap-2 rounded-full border border-[#f1c14b]/45 bg-[#07141d] px-4 text-sm font-black uppercase tracking-[0.11em] text-[#f6d47a] shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] hover:border-[#ffe274] hover:bg-[#102532] hover:text-[#ffe274] sm:flex-none 2xl:px-3"
+          className="inline-flex h-12 flex-1 items-center justify-center gap-2 rounded-full border border-[#f1c14b]/45 bg-[#07141d] px-3 text-sm font-black uppercase tracking-[0.08em] text-[#f6d47a] shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] hover:border-[#ffe274] hover:bg-[#102532] hover:text-[#ffe274] sm:flex-[0_1_8rem] xl:flex-none 2xl:px-3"
         >
           <span aria-hidden="true">♥</span>
           <span>Apoya</span>
@@ -65,7 +65,7 @@ export default function MainNav() {
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Canal de YouTube de Player Breakdown"
-          className="inline-flex h-12 flex-1 items-center justify-center gap-2 rounded-full border border-red-400/35 bg-red-950/35 px-4 text-base font-black uppercase tracking-[0.12em] text-red-100 hover:border-red-300/70 hover:bg-red-700/55 hover:text-white sm:flex-none sm:px-4 2xl:px-3"
+          className="inline-flex h-12 flex-1 items-center justify-center gap-2 rounded-full border border-red-400/35 bg-red-950/35 px-3 text-sm font-black uppercase tracking-[0.08em] text-red-100 hover:border-red-300/70 hover:bg-red-700/55 hover:text-white sm:flex-[0_1_9rem] xl:flex-none xl:text-base 2xl:px-3"
         >
           <svg
             aria-hidden="true"
@@ -74,7 +74,7 @@ export default function MainNav() {
           >
             <path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31.7 31.7 0 0 0 0 12a31.7 31.7 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31.7 31.7 0 0 0 24 12a31.7 31.7 0 0 0-.5-5.8ZM9.6 15.6V8.4L15.8 12l-6.2 3.6Z" />
           </svg>
-          <span>YouTube</span>
+          <span className="hidden lg:inline">YouTube</span>
         </a>
       </div>
     </div>
@@ -103,7 +103,7 @@ function NavItem({
   return (
     <Link
       href={href}
-      className={`group relative flex min-h-11 min-w-0 items-center justify-center whitespace-nowrap px-1 py-2 text-center text-[0.68rem] font-black uppercase tracking-[0.02em] sm:min-h-12 sm:px-2 sm:py-3 sm:text-sm sm:tracking-[0.04em] md:text-lg lg:text-xl xl:text-[1.3rem] ${
+      className={`group relative flex min-h-11 min-w-0 items-center justify-center whitespace-nowrap px-1 py-2 text-center text-[0.68rem] font-black uppercase tracking-[0.02em] sm:min-h-12 sm:px-2 sm:py-3 sm:text-sm sm:tracking-[0.04em] md:text-base lg:text-lg 2xl:text-[1.3rem] ${
         featuredClass
       }`}
     >

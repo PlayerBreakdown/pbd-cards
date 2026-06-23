@@ -16,9 +16,11 @@
 
 html {
   background: var(--background);
+  overflow-x: hidden;
 }
 
 body {
+  overflow-x: hidden;
   background: var(--background);
   color: var(--foreground);
   font-size: 17px;

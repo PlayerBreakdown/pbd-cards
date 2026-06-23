@@ -165,12 +165,12 @@ function CardsContent() {
     <main className="min-h-screen bg-black px-3 py-5 text-white sm:px-6">
       <div className="mx-auto max-w-[108rem]">
       <div className="mb-5 space-y-4">
-        <div className="grid gap-4 xl:grid-cols-2 xl:items-stretch">
+        <div className="grid gap-4 2xl:grid-cols-2 2xl:items-stretch">
           <SeasonRatingScale />
           <HighlightStrip highlights={highlights} season={DEFAULT_SEASON} onOpen={setSelectedCard} />
         </div>
 
-        <div className="grid grid-cols-1 gap-2 md:grid-cols-2 xl:grid-cols-7">
+        <div className="grid grid-cols-1 gap-2 md:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-7">
           <FilterField label="Jugador" className="xl:col-span-2">
             <input
               value={search}
