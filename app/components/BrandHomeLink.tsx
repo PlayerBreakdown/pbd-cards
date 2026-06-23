@@ -14,7 +14,7 @@ export default function BrandHomeLink() {
         }
         window.location.assign("/");
       }}
-      className="group relative z-[60] inline-flex shrink-0 cursor-pointer items-center gap-0.5 sm:gap-1 xl:absolute xl:left-0 xl:top-1/2 xl:-translate-y-1/2 2xl:-left-14"
+      className="group relative z-[60] inline-flex shrink-0 cursor-pointer items-center gap-0.5 sm:gap-1 xl:absolute xl:left-0 xl:top-1/2 xl:-translate-y-1/2 min-[1800px]:-left-14"
       aria-label="Volver a Cartas"
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
