@@ -8,9 +8,13 @@
     "start": "next start",
     "lint": "eslint",
     "refresh:data": "npm --prefix ../generator run gen && npm run sync:data",
-    "sync:data": "node scripts/sync-static-data.js"
+    "refresh:data:force": "npm --prefix ../generator run gen:force && npm run sync:data",
+    "sync:data": "node scripts/sync-static-data.js",
+    "audit:assets": "node scripts/audit-assets.js",
+    "benchmark:cards": "node scripts/benchmark-card-scale.js"
   },
   "dependencies": {
+    "@vercel/analytics": "^2.0.1",
     "next": "16.1.6",
     "react": "19.2.3",
     "react-dom": "19.2.3"

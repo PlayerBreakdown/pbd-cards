@@ -24,6 +24,14 @@ El comando copia `../output/*.png` a `public/cards/` y crea `public/data/cards.j
 
 Si `PUNTUACIONES_ATACANTES.csv` existe, el generador usa ese archivo. Si no existe, usa el `EXPORT.csv` viejo como respaldo.
 
+El catalogo generado queda separado en:
+
+- `public/data/cards.index.json`: indice liviano para filtros, rankings y VS.
+- `public/data/card-details/*.json`: detalle por carta.
+- `public/data/catalog.meta.json`: conteo, fuente y version de formula.
+
+Para revisar la estrategia de crecimiento y cambios futuros de formula, lee `docs/scale-and-formula-architecture.md`.
+
 ## Desarrollo
 
 ```bash
