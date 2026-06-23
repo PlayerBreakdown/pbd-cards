@@ -106,7 +106,7 @@ export default function RootLayout({
     <html lang="es">
       <body className="antialiased bg-black text-white">
         <header className="pbp-site-header sticky top-0 z-50 border-b border-[#d89b18]/25">
-          <div className="relative mx-auto flex max-w-[108rem] flex-col items-center gap-2 px-3 py-2 sm:px-5 lg:px-6 xl:py-2.5 2xl:px-8">
+          <div className="relative mx-auto grid max-w-[108rem] grid-cols-1 items-center gap-2 px-3 py-2 sm:px-5 lg:px-6 xl:grid-cols-[auto_minmax(0,1fr)] xl:gap-x-6 xl:py-2.5 2xl:px-8">
             <BrandHomeLink />
 
             <MainNav />
