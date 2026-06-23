@@ -43,7 +43,7 @@ export default function MainNav() {
             href="https://ko-fi.com/playerbreakdown"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex h-12 flex-1 items-center justify-center gap-2 rounded-xl border border-[#f1c14b]/70 bg-[linear-gradient(135deg,#f1c14b,#d89b18_48%,#9a5f05)] px-3 text-base font-black uppercase tracking-[0.08em] text-[#08111f] shadow-[inset_0_1px_0_rgba(255,255,255,0.35)] hover:border-[#ffe274] hover:bg-[#f1c14b] sm:flex-none xl:px-5 xl:text-lg xl:tracking-[0.12em]"
+            className="inline-flex h-11 flex-1 items-center justify-center gap-2 rounded-xl xl:h-12 border border-[#f1c14b]/70 bg-[linear-gradient(135deg,#f1c14b,#d89b18_48%,#9a5f05)] px-3 text-base font-black uppercase tracking-[0.08em] text-[#08111f] shadow-[inset_0_1px_0_rgba(255,255,255,0.35)] hover:border-[#ffe274] hover:bg-[#f1c14b] sm:flex-none xl:px-5 xl:text-lg xl:tracking-[0.12em]"
           >
             <span aria-hidden="true">★</span>
             Pedir carta
@@ -54,7 +54,7 @@ export default function MainNav() {
           href="https://ko-fi.com/playerbreakdown"
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex h-12 flex-1 items-center justify-center gap-2 rounded-full border border-[#f1c14b]/45 bg-[#07141d] px-3 text-sm font-black uppercase tracking-[0.08em] text-[#f6d47a] shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] hover:border-[#ffe274] hover:bg-[#102532] hover:text-[#ffe274] sm:flex-[0_1_8rem] xl:flex-none 2xl:px-3"
+          className="inline-flex h-11 flex-1 items-center justify-center gap-2 rounded-full border border-[#f1c14b]/45 xl:h-12 bg-[#07141d] px-3 text-sm font-black uppercase tracking-[0.08em] text-[#f6d47a] shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] hover:border-[#ffe274] hover:bg-[#102532] hover:text-[#ffe274] sm:flex-[0_1_8rem] xl:flex-none 2xl:px-3"
         >
           <span aria-hidden="true">♥</span>
           <span>Apoya</span>
@@ -65,7 +65,7 @@ export default function MainNav() {
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Canal de YouTube de Player Breakdown"
-          className="inline-flex h-12 flex-1 items-center justify-center gap-2 rounded-full border border-red-400/35 bg-red-950/35 px-3 text-sm font-black uppercase tracking-[0.08em] text-red-100 hover:border-red-300/70 hover:bg-red-700/55 hover:text-white sm:flex-[0_1_9rem] xl:flex-none xl:text-base 2xl:px-3"
+          className="inline-flex h-11 flex-1 items-center justify-center gap-2 rounded-full border border-red-400/35 xl:h-12 bg-red-950/35 px-3 text-sm font-black uppercase tracking-[0.08em] text-red-100 hover:border-red-300/70 hover:bg-red-700/55 hover:text-white sm:flex-[0_1_9rem] xl:flex-none xl:text-base 2xl:px-3"
         >
           <svg
             aria-hidden="true"
@@ -103,7 +103,7 @@ function NavItem({
   return (
     <Link
       href={href}
-      className={`group relative flex min-h-11 min-w-0 items-center justify-center whitespace-nowrap px-1 py-2 text-center text-[0.68rem] font-black uppercase tracking-[0.02em] sm:min-h-12 sm:px-2 sm:py-3 sm:text-sm sm:tracking-[0.04em] md:text-base lg:text-lg 2xl:text-[1.3rem] ${
+      className={`group relative flex min-h-11 min-w-0 items-center justify-center whitespace-nowrap px-1 py-2 text-center text-[0.68rem] font-black uppercase tracking-[0.02em] sm:min-h-11 sm:px-2 sm:py-2 sm:text-sm sm:tracking-[0.04em] md:text-base lg:text-lg xl:min-h-12 xl:py-3 2xl:text-[1.3rem] ${
         featuredClass
       }`}
     >
